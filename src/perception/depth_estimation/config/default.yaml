@@ -1,0 +1,49 @@
+depth_estimation:
+  ros__parameters:
+    debug: false
+    profiling_enabled: true
+
+    use_gpu: true
+
+    status:
+      cone_array: true
+
+    # Frame IDs
+    frame_ids:
+      camera: "pylon_camera"
+      base_link: "base_link"
+
+    # Topics
+    topics:
+      sub:
+        fw_bbox: "/perception/yolo_camera_detector/forward_bbox"
+        fw_cam: "/forward_camera/pylon_ros2_camera_node/image_raw"
+      pub:
+        bbox_depth: "/perception/depth_estimation/bbox_depth"
+        cone_array: "/perception/camera/cone_array"
+        debug:
+          img_overlay: "/perception/depth_estimation/debug/img_overlay"
+
+    mde_on: true #If true, new MDE. If false, 2022's depth estimation based on bounding box height
+
+    # Camera intrinsics file
+    intrinsics_file: "package://camera_launcher/config/calibration/forward_camera_CAR_NAME_2024.yaml"
+
+    # Image resolution
+    image_width: 2592
+    image_height: 352
+
+    small_cone_width_mde: 0.150 # With mde means use the new mde algo, so smaller
+    small_cone_height_mde: 0.260
+    small_cone_width: 0.228
+    small_cone_height: 0.300
+
+    distance_threshold: 100000 # Small new mde, large old mde
+    scaling: 1.0 # In case of bbox mde, cone needs to be scaled to a bigger size
+
+    big_cone_width_mde: 0.225
+    big_cone_height_mde: 0.460
+    big_cone_width: 0.285
+    big_cone_height: 0.495
+
+    weights_path: "/.amz/250_euler_13k.onnx"

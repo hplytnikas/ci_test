@@ -1,0 +1,4 @@
+$dep_name:
+  ubuntu:
+    source:
+      uri: "file:///etc/ros/rosdep/amz/rdmanifests/$dep_name.rdmanifest"

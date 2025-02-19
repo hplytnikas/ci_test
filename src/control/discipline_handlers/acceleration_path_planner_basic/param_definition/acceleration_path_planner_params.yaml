@@ -1,0 +1,39 @@
+acceleration_path_planner_params:
+  reference_topic: {
+    type: string,
+    default_value: "/planning/reference"
+  }
+  reference_publish_frequency: {
+    type: double,
+    default_value: 4.0,
+    validation: {
+      gt<>: [0.0]
+    }
+  }
+  num_points: {
+    type: int,
+    default_value: 300,
+    validation: {
+      gt_eq<>: [0.0]
+    }
+  }
+  lane_width: {
+    type: double,
+    default_value: 4.0,
+    validation: {
+      gt_eq<>: [0.0]
+    }
+  }
+  reference_resolution: {
+    type: double,
+    default_value: 0.5,
+    validation: {
+      gt_eq<>: [0.0]
+    }
+  }
+  target_velocity: {
+    type: double,
+    validation: {
+      gt_eq<>: [0.0]
+    }
+  }

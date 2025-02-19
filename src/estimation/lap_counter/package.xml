@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>lap_counter</name>
+  <version>0.0.0</version>
+  <description>lap_counter publisher</description>
+  <maintainer email="gpiatelli@ethz.ch">Giacomo Piatelli</maintainer>
+  <license>APACHE 2.0</license>
+  <author email="gpiatelli@ethz.ch">Giacomo Piatelli</author>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>vcu_msgs</depend>
+  <depend>visualization_msgs</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+
+  <exec_depend>ros2launch</exec_depend>
+
+</package>

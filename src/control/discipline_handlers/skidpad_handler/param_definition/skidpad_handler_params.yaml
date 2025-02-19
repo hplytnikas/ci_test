@@ -1,0 +1,66 @@
+skidpad_handler_params:
+  velocity_estimation_topic: {
+    type: string,
+    default_value: "/vcu_msgs/velocity_estimation",
+    read_only: true
+  }
+  mission_finished_topic: {
+    type: string,
+    default_value: "/vcu_msgs/mission_finished",
+    read_only: true
+  }
+  max_velocity_topic: {
+    type: string,
+    default_value: "/control/max_velocity",
+    read_only: true
+  }
+  brake_controller_topic: {
+    type: string,
+    default_value: "/control/brake_controller",
+    read_only: true
+  }
+  reference_topic: {
+    type: string,
+    read_only: true
+  }
+  mission_finished_velocity_threshold: {
+    type: double,
+    default_value: 1.0,
+    read_only: true
+  }
+  frequency: {
+    type: double,
+    default_value: 10.0,
+    read_only: true
+  }
+  path_file: {
+    type: string,
+    default_value: "/trayectory/latest.csv",
+    read_only: true
+  }
+  num_points_published: {
+    type: int,
+    default_value: 200,
+    read_only: true
+  }
+  velocity_profile_indices: {
+    type: int_array,
+    default_value: [0],
+    read_only: true
+  }
+  velocity_profile: {
+    type: double_array,
+    default_value: [5.0],
+    read_only: true
+  }
+  index_mission_finished: {
+    type: int,
+    default_value: 2000,
+    read_only: true
+  }
+  lane_width_left: {
+    type: double,
+  }
+  lane_width_right: {
+    type: double,
+  }

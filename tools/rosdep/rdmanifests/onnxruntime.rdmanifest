@@ -1,0 +1,53 @@
+uri: 'file:///etc/ros/rosdep/amz/empty.tar'
+
+md5sum: 1276481102f218c981e0324180bafd9f
+install-script: |
+  #!/bin/bash
+
+  SUDO=
+  if [ "$(id -u)" -ne 0 ]; then
+    SUDO=sudo
+  fi
+
+  # Define ONNX Runtime version and installation type
+  version="1.12.1"
+  onnx_type="gpu" # or "cpu"
+
+  # Construct the download file name
+  tgz_name="onnxruntime-linux-x64-$onnx_type-$version.tgz"
+
+  # Define a system-wide cache directory
+  cache_dir="/usr/local/share/amz/cache"
+  install_dir="/usr/local/share/amz"
+
+  # Create the cache directory if it does not exist
+  $SUDO mkdir -p $cache_dir
+
+  # Download the ONNX Runtime package if it's not already present
+  if [ ! -e "$cache_dir/$tgz_name" ]; then
+    $SUDO wget "https://github.com/microsoft/onnxruntime/releases/download/v$version/$tgz_name" -O "$cache_dir/$tgz_name"
+  fi
+
+  # Extract the package to a system-wide location
+  $SUDO tar zxvf "$cache_dir/$tgz_name" -C "$install_dir/"
+
+  # Update permissions as needed
+  $SUDO chown -R root:root "$install_dir/"
+  $SUDO chmod -R 755 "$install_dir/"
+
+  echo "ONNX Runtime installed system-wide!"
+
+check-presence-script: |
+  #!/bin/bash
+
+  # IN CASE WE CHANGE UPDATE THIS AS WELL
+  version="1.12.1"
+  onnx_type="gpu" # or "cpu"
+  install_dir="/usr/local/share/amz"
+
+  # Check for the existence of ONNX Runtime in the system-wide installation path
+  if [ -d "$install_dir/onnxruntime-linux-x64-$onnx_type-$version" ]; then
+    exit 0; # Exists, exit with code 0 to indicate success
+  else
+    exit 1; # Does not exist, exit with code 1 to indicate failure
+  fi

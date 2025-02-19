@@ -1,0 +1,22 @@
+perception_faked:
+  faked_perception:
+    ros__parameters:
+      frequency: 10 # Frequency at which perception runs [Hz]
+      fov_r_fus: 30.0 # Radius of the field of view using sensor fusion[m]
+      fov_angle_fus: 100.0 # Angle of the field of view using sensor fusion[deg]
+      fov_r_cam: 10.0 # FOV radius of camera only [m]
+      fov_angle_cam: 100.0 # FOV angle camera only [deg]
+      fov_r_lid: 30.0 # FOV radius of lidar only [m]
+      fov_angle_lid: 100.0 # FOV angle lidar only [deg]
+      mean_x_fus: 0.0 # x mean of the gaussian of the noise added to cone[m]
+      mean_y_fus: 0.0 # y mean of the gaussian of the noise added to cone[m]
+      mean_x_cam: 0.0 # x mean of the gaussian of the noise added to cone[m]
+      mean_y_cam: 0.0 # y mean of the gaussian of the noise added to cone[m]
+      mean_x_lid: 0.0 # x mean of the gaussian of the noise added to cone[m]
+      mean_y_lid: 0.0 # y mean of the gaussian of the noise added to cone[m]
+      stddev_x_fus: 0.06 # x standard dev of the gaussian of the noise added to cone using sensor fusion[m] (car frame!)
+      stddev_y_fus: 0.06 # y standard dev of the gaussian of the noise added to cone using sensor fusion[m] (car frame!)
+      stddev_x_cam: 0.3 # camera only noise[m]
+      stddev_y_cam: 0.3 # camera only noise[m]
+      stddev_x_lid: 0.06 # lidar only noise [m]
+      stddev_y_lid: 0.06 # lidar only noise [m]

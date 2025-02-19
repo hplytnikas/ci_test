@@ -1,0 +1,18 @@
+# TODO(spiasecki): Remove this duplication
+sender_node:
+  ros__parameters:
+    max_msg_size: 25
+    vcu_ip: "192.168.1.111"
+    cb_ip: "192.168.1.153"
+    ports:
+      sender_port: 1045
+      vcu_port: 1044
+
+receiver_node:
+  ros__parameters:
+    max_msg_size: 25
+    vcu_ip: "192.168.1.111"
+    cb_ip: "192.168.1.153"
+    ports:
+      receiver_port: 1027
+      vcu_port: 1044

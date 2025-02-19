@@ -1,0 +1,34 @@
+ <package format="2">
+  <name>amz_rosdep</name>
+  <version>1.0.2</version>
+  <description>
+    Place to define dependencies for autonomous_2024
+  </description>
+  <maintainer email="bplewka@amzracing.ch">Bartosz Plewka</maintainer>
+  <license>BSD</license>
+
+
+  <depend>onnxruntime</depend>
+  <depend>tf2</depend>
+  <depend>cgal</depend>
+  <depend>eigen</depend>
+  <depend>fast-cpp-csv-parser</depend>
+
+  <depend>libpcl-dev</depend>
+  <depend>libpcap-dev</depend>
+  <depend>libyaml-cpp-dev</depend>
+  <depend>libboost-dev</depend>
+  <depend>easyprofiler</depend>
+
+  <depend>pre-commit</depend>
+  <depend>cpplint</depend>
+  <depend>pcl_ros</depend>
+
+  <depend>pylon</depend>
+  <depend>acados</depend>
+  <depend>rclpy</depend>
+
+  <depend>customtkinter</depend>
+  <depend>gtsam-release</depend>
+  <depend>foxglove_bridge</depend>
+ </package>

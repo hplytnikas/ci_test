@@ -1,0 +1,367 @@
+mpc_controller_params:
+    # solver type should be read only
+    solver_type: {
+      type: string,
+      default_value: "EMBOTECH",
+      read_only: false
+    }
+
+    # TIMEOUTS
+    controller_timeout_reset: {
+      type: int,
+      default_value: 1000,
+      read_only: false
+    }
+    controller_timeout_fatal: {
+      type: int,
+      default_value: 6000,
+      read_only: false
+    }
+    # solver MPC timeout
+    consecutive_failures_limit: {
+      type: int,
+      default_value: 50,
+      read_only: false
+    }
+
+    # ENABLE FLAGS
+    enable_visualisation: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+    enable_logging: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+    enable_profiling: {
+      type: bool,
+      default_value: false,
+      read_only: false
+    }
+    enable_output_interpolation: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+    enable_delay_compensation: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+    enable_velocity_planning: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+    mpc_plan_from_car: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+
+    # PATH
+    max_radius_path_points: {
+      type: double,
+      default_value: 20.0,
+      read_only: false
+    }
+    mpc_from_car_pruning_distance: {
+      type: double,
+      default_value: 2.0,
+      read_only: false
+    }
+
+    # LAUNCH CONTROLLER
+    ax_command_standstill: {
+      type: double,
+      default_value: 1.0,
+      read_only: false
+    }
+    vel_threshold_standstill: {
+      type: double,
+      default_value: 0.5,
+      read_only: false
+    }
+
+    # MPC output interpolation
+    mpc_dt_interp_ax: {
+      type: double,
+      default_value: 0.010,
+      read_only: false
+    }
+    mpc_dt_interp_dels: {
+      type: double,
+      default_value: 0.030,
+      read_only: false
+    }
+    mpc_dt_interp_dpsi: {
+      type: double,
+      default_value: 0.010,
+      read_only: false
+    }
+
+    # time constants for the first order behavior assumed for steering and acceleration
+    tau_ax: {
+      type: double,
+      default_value: 0.01,
+      read_only: false
+    }
+    tau_dels: {
+      type: double,
+      default_value: 0.08,
+      read_only: false
+    }
+
+    # MPC Model parameters
+    m: {
+      type: double,
+      default_value: 200.0,
+      read_only: false
+    }
+    l_f: {
+      type: double,
+      default_value: 0.78,
+      read_only: false
+    }
+    l_r: {
+      type: double,
+      default_value: 0.74,
+      read_only: false
+    }
+    C_d: {
+      type: double,
+      default_value: 1.55,
+      read_only: false
+    }
+    C_r: {
+      type: double,
+      default_value: 0.13,
+      read_only: false
+    }
+    C_l: {
+      type: double,
+      default_value: 3.4,
+      read_only: false
+    }
+    car_width: {
+      type: double,
+      default_value: 1.5,
+      read_only: false
+    }
+    l_to_front: {
+      type: double,
+      default_value: 1.5,
+      read_only: false
+    }
+    l_to_rear: {
+      type: double,
+      default_value: 1.3,
+      read_only: false
+    }
+    B_tire: {
+      type: double,
+      default_value: 12.0,
+      read_only: false
+    }
+    C_tire: {
+      type: double,
+      default_value: 1.5,
+      read_only: false
+    }
+    D_tire: {
+      type: double,
+      default_value: 0.9,
+      read_only: false
+    }
+    h_cg: {
+      type: double,
+      default_value: 0.258,
+      read_only: false
+    }
+    Iz: {
+      type: double,
+      default_value: 190.0,
+      read_only: false
+    }
+
+    # MPC Cost parameters
+    q_ds: {
+      type: double,
+      default_value: 1.0,
+      read_only: false
+    }
+    q_ds_terminal: {
+      type: double,
+      default_value: 1.15,
+      read_only: false
+    }
+    q_n: {
+      type: double,
+      default_value: 0.55,
+      read_only: false
+    }
+    q_n_terminal: {
+      type: double,
+      default_value: 6.6,
+      read_only: false
+    }
+    q_mu: {
+      type: double,
+      default_value: 2.0,
+      read_only: false
+    }
+    q_mu_terminal: {
+      type: double,
+      default_value: 5.0,
+      read_only: false
+    }
+
+    r_dax: {
+      type: double,
+      default_value: 0.00001,
+      read_only: false
+    }
+    r_ddels: {
+      type: double,
+      default_value: 0.08,
+      read_only: false
+    }
+
+
+    # MPC Constraint parameters
+    vx_max: {
+      type: double,
+      default_value: 20.0,
+      read_only: false
+    }
+
+    vx_max_terminal: {
+      type: double,
+      default_value: 5.0,
+      read_only: false
+    }
+
+    axt_abs_max: {
+      type: double,
+      default_value: 13.0,
+      read_only: false
+    }
+    ayt_abs_max: {
+      type: double,
+      default_value: 8.0,
+      read_only: false
+    }
+
+    dels_abs_max: {
+      type: double,
+      default_value: 0.45,
+      read_only: false
+    }
+
+    dax_min: {
+      type: double,
+      default_value: -50.0,
+      read_only: false
+    }
+    dax_max: {
+      type: double,
+      default_value: 50.0,
+      read_only: false
+    }
+
+    ddels_abs_max: {
+      type: double,
+      default_value: 10.0,
+      read_only: false
+    }
+
+    terminal_vel_progress_scaling: {
+      type: double,
+      default_value: 1.2,
+      read_only: false
+    }
+
+    terminal_vel_scaling: {
+      type: double,
+      default_value: 1.0,
+      read_only: false
+    }
+
+    trackbound_shrinkage: {
+      type: double,
+      default_value: 1.0,
+      read_only: false
+    }
+
+    vx_max_terminal_addition_on_low_curvature: {
+      type: double,
+      default_value: 2.0,
+      read_only: false
+    }
+
+    low_curvature_threshold: {
+      type: double,
+      default_value: 0.01,
+      read_only: false
+    }
+
+    terminal_progress_threshold: {
+      type: double,
+      default_value: 5.0,
+      read_only: false
+    }
+
+
+    # Pure Pursuit fallback parameters
+    pp_fallback_enabled: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+    pp_fallback_speed_target: {
+      type: double,
+      default_value: 6.0,
+      read_only: false
+    }
+    pp_fallback_start_speed_threshold: {
+      type: double,
+      default_value: 1.0,
+      read_only: false
+    }
+    pp_fallback_stop_speed_threshold: {
+      type: double,
+      default_value: 2.0,
+      read_only: false
+    }
+    pp_kp_longitudinal: {
+      type: double,
+      default_value: 2.0,
+      read_only: false
+    }
+    pp_max_acceleration_output: {
+      type: double,
+      default_value: 5.0,
+      read_only: false
+    }
+    pp_lookahead_distance_min: {
+      type: double,
+      default_value: 4.0,
+      read_only: false
+    }
+    pp_lookahead_distance_max: {
+      type: double,
+      default_value: 9.0,
+      read_only: false
+    }
+    pp_lookahead_distance_factor: {
+      type: double,
+      default_value: 0.4,
+      read_only: false
+    }
+    num_warnings_before_fallback: {
+      type: int,
+      default_value: 5,
+      read_only: false
+    }

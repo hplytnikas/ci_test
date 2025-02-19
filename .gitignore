@@ -1,0 +1,98 @@
+.vscode/
+
+# Jetbrains IDE
+.idea/
+
+# CLion
+clion/
+clion-cmake/
+
+# Eclipse
+.cproject
+.project
+.settings
+*.pydevproject
+
+# Others
+cmake-build-debug/
+cmake-build-release/
+
+# Applications
+*.app
+*.exe
+*.war
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+
+# tools
+tools/__pycache__
+tools/temp
+
+
+# Autosave files
+*.sw*
+*~
+
+# Colcon
+build/
+log/
+install/
+log/
+src/CMakeLists.txt
+
+# binary files
+*.pyc
+
+# Compiled Python bytecode
+*.py[cod]
+
+# Python projects
+*.egg-info*
+
+# Log files
+*.log
+
+# Rosbags
+**.bag
+**/rosbag2_*/metadata.yaml
+**.mcap
+**.db3
+
+# CSV files
+**.csv
+# Except for this specific file
+!src/control/discipline_handlers/skidpad_handler/trajectory/*.csv
+!src/amzsim/amzsim_backend/amzsim_tracks/tracks_csv/*.csv
+!src/amzsim/amzsim_backend/amzsim_tracks/tracks_csv/standard/autocross_trackdrive/*.csv
+!src/estimation/slam/slam_frontend/maps/*.csv
+
+# Profiler files
+*.prof
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+processed_cloud.pcd

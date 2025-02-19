@@ -1,0 +1,59 @@
+slam:
+  ros__parameters:
+    # Determines the mission type
+    # (0:acceleration, 1:skidpad, 2:autoX, 3:trackdrive)
+    mission_type: 2
+    # Determines if mapping mode is on (false => localization only, no new cones added)
+    mapping_mode: true
+    # Enables saving the map when mission is finished
+    save_map_on_mission_finished: true
+
+    # All parameters related to data association
+    data_association:
+      # Data association algorithm ("nearest_neighbor")
+      algorithm: "nearest_neighbor"
+      # Parameters related to nearest neighbor data association
+      nearest_neighbor:
+        # If a new cone is not within this distance from
+        # an existing cone, it will be treated as a new cone in the graph.
+        # Otherwise it will be associated to an existing cone.
+        min_distance_threshold_m: 1.2
+
+    # All parameters related to the slam backend
+    slam_backend:
+      # Slam backend algorithm ("graph_slam", "fixed_lag_smoothing", "isam2")
+      algorithm: "graph_slam"
+      # Parameters related to graph slam
+      graph_slam:
+        # The maximum allowed total edges in the graph
+        max_edges: 10000
+        # TODO(Christoforos) Future modifications for performance
+        # Maximium number of iterations for the GTSAM optimizer
+        optimizer_iterations: 3
+        # Error tolerance for GTSAM optimizer
+        optimizer_error_tolerance: 0.1
+        # Noise model: prior of odometry
+        pose_prior_noise: [0.01, 0.01, 0.01]
+        # Noise model: odometry
+        pose_noise: [1.0, 1.0, 0.5] # [1.0, 1.0, 0.5] # [0.5, 1.5, 1.5] # [0.5, 0.5, 0.5]
+        # Noise model: prior of landmarks (fixed map)
+        landmark_prior_noise: [0.01, 0.01]
+        # Noise model: cone observations (bearing, range)
+        landmark_noise: [0.1, 1.5] # [0.1, 1.5] # [0.1, 0.7] # [0.9, 0.9]
+      # Parameters related to fixed lag smoothing
+      fixed_lag_smoothing:
+        # Lag used for pruning
+        lag: 750.0
+        # TODO(Christoforos) Future modifications for performance
+        # Maximium number of iterations for the GTSAM optimizer
+        optimizer_iterations: 3
+        # Error tolerance for GTSAM optimizer
+        optimizer_error_tolerance: 0.1
+        # Noise model: prior of odometry
+        pose_prior_noise: [0.01, 0.01, 0.01]
+        # Noise model: odometry
+        pose_noise: [0.5, 1.0, 1.0]
+        # Noise model: prior of landmarks (fixed map)
+        landmark_prior_noise: [0.01, 0.01]
+        # Noise model: cone observations (bearing, range)
+        landmark_noise: [1.0, 0.7]

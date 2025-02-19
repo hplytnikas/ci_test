@@ -1,0 +1,217 @@
+name: main
+
+env:
+  DOCKER_REGISTRY: localhost:5000
+  TOOL_YEAR_TAG: 2024
+  DEPENDENCY_IMAGE: virtualization
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+
+  # This job generates a hash of the files in /tools/deps which is used to
+  # determine if they changed.
+  generate-dependency-hash:
+    runs-on: self-hosted
+    container:
+      # this needs to simulate rosdep install, so needs something that already has rosdep
+      image: osrf/ros:humble-desktop-full
+      # THIS IS NEEDED BECAUSE ELSE RUNNER CREATES FILES AS ROOT DURING CHECKOUT FOR SOME
+      #   FUCKED REASON AND THEY CANT BE USED BY HOST, TOOK ME HOURS TO FIGURE THIS ONE OUT
+      # Make sure that the user is the same as host
+      options: --user 1000
+    outputs:
+      hash: ${{ steps.hash.outputs.hash }}
+    steps:
+      # Check out the commit that triggered this CI run
+      - uses: actions/checkout@v4
+      # Needs pip, which for some reason is not present
+      - uses: actions/setup-python@v5
+      # Run the hashing command
+      - name: Generate hash
+        id: hash
+        run: echo "::set-output name=hash::$(./tools/ci/dep_hash.sh)"
+
+  # This job makes sure that an image with installed dependencies
+  # exists on the machine running the GitHub runner.
+  check-if-dependency-image-exists:
+    needs: [generate-dependency-hash]
+    runs-on: self-hosted
+    outputs:
+      image_exists: ${{ steps.check.outputs.image_exists }}
+    steps:
+      # Pull the image from the registry hosted on bigmf.
+      - name: Pull dependency image
+        run: docker pull $DOCKER_REGISTRY/$DEPENDENCY_IMAGE:${{needs.generate-dependency-hash.outputs.hash}} || true
+      # Check if the image is present after pulling and set an image_exists
+      # environment variable.
+      - name: Check if image exists
+        id: check
+        run: |
+          if [[ "$(docker images -q $DOCKER_REGISTRY/$DEPENDENCY_IMAGE:${{needs.generate-dependency-hash.outputs.hash}} 2> /dev/null)" == "" ]]; \
+          then \
+            echo "::set-output name=image_exists::false"; \
+          else \
+            echo "::set-output name=image_exists::true"; \
+          fi
+
+  # If the image with dependencies does not exist, build it and push it to the
+  # registry.
+  build-dependency-image:
+    needs: [check-if-dependency-image-exists, generate-dependency-hash]
+    runs-on: self-hosted
+    steps:
+      # All of these if statements are very ugly, but github does not offer a
+      # way to do conditional dependencies between jobs. I can't tell the
+      # pull-dependency-image job to depend on build-dependency-image only if
+      # the image did not exist.
+      - name: Checkout
+        if: ${{ needs.check-if-dependency-image-exists.outputs.image_exists == 'false' }}
+        uses: actions/checkout@v4
+      - name: Build the dependency image
+        if: ${{ needs.check-if-dependency-image-exists.outputs.image_exists == 'false' }}
+        run: ./tools/virtualization/run.sh build --build-arg BRANCH=${{ env.BRANCH_NAME }}
+      - name: Tag the dependency image
+        if: ${{ needs.check-if-dependency-image-exists.outputs.image_exists == 'false' }}
+        run: docker tag $DEPENDENCY_IMAGE:latest $DOCKER_REGISTRY/$DEPENDENCY_IMAGE:${{ needs.generate-dependency-hash.outputs.hash }}
+      - name: Push the dependency image
+        if: ${{ needs.check-if-dependency-image-exists.outputs.image_exists == 'false' }}
+        run: docker push $DOCKER_REGISTRY/$DEPENDENCY_IMAGE:${{ needs.generate-dependency-hash.outputs.hash }}
+
+  # After checking whether the image exists on the repository and building &
+  # pushing it if it does not, pull the image so that we can use it in the rest
+  # of the workflow.
+  pull-dependency-image:
+    needs: [build-dependency-image, generate-dependency-hash]
+    runs-on: self-hosted
+    outputs:
+      image: ${{ env.DOCKER_REGISTRY }}/${{ env.DEPENDENCY_IMAGE }}:${{needs.generate-dependency-hash.outputs.hash}}
+    steps:
+      - run: docker pull $DOCKER_REGISTRY/$DEPENDENCY_IMAGE:${{needs.generate-dependency-hash.outputs.hash}}
+
+  pre-commit:
+    needs: [pull-dependency-image]
+    runs-on: self-hosted
+    container:
+      image: ${{ needs.pull-dependency-image.outputs.image }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+    - run: git config --global --add safe.directory /__w/autonomous_2024/autonomous_2024
+    # - uses: pre-commit/action@v3.0.1 # perhaps this is better ?
+    - run: pre-commit run --all-files
+
+  build-code:
+    needs: [pull-dependency-image]
+    runs-on: self-hosted
+    container:
+      image: ${{ needs.pull-dependency-image.outputs.image }}
+      options: --gpus all
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ssh-key: ${{secrets.CI_SSH_KEY}} # needed for submodules
+      - run: git config --global --add safe.directory /__w/autonomous_2024/autonomous_2024
+      - name: Build code
+        id: build
+        run: ./tools/scripts/build.sh
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-results
+          path: |
+            install
+            tools/ci
+
+  run-autocross:
+    needs: [pull-dependency-image, build-code]
+    runs-on: self-hosted
+    container:
+      image: ${{ needs.pull-dependency-image.outputs.image }}
+      options: --gpus all
+      ports:
+        - 9090:9090
+    timeout-minutes: 3
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-results
+          path: ./
+      - name: Post artifact setup
+        run: |
+            chmod -R +x install/ tools/ci/
+      - name: Simulate autocross
+        run: |
+          source install/setup.bash
+          ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=9090 >/dev/null 2>&1 &
+          echo "Visualize at: https://app.foxglove.dev/~/view?ds=foxglove-websocket&ds.url=ws://129.132.161.41:9090"
+          ./tools/ci/pipeline_launchers/autocross.sh >/dev/null 2>&1 &
+          ./tools/ci/listen_finish.sh
+
+  run-skidpad:
+    needs: [pull-dependency-image, build-code]
+    runs-on: self-hosted
+    container:
+      image: ${{ needs.pull-dependency-image.outputs.image }}
+      options: --gpus all
+      ports:
+        - 9090:9090
+    timeout-minutes: 3
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-results
+          path: ./
+      - name: Post artifact setup
+        run: |
+            chmod -R +x install/ tools/ci/
+      - name: Simulate skidpad
+        run: |
+          source install/setup.bash
+          ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=9090 >/dev/null 2>&1 &
+          echo "Visualize at: https://app.foxglove.dev/~/view?ds=foxglove-websocket&ds.url=ws://129.132.161.41:9090"
+          ./tools/ci/pipeline_launchers/skidpad.sh >/dev/null 2>&1 &
+          ./tools/ci/listen_finish.sh
+
+  run-accel:
+    needs: [pull-dependency-image, build-code]
+    runs-on: self-hosted
+    container:
+      image: ${{ needs.pull-dependency-image.outputs.image }}
+      options: --gpus all
+      ports:
+        - 9090:9090
+    timeout-minutes: 3
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-results
+          path: ./
+      - name: Post artifact setup
+        run: |
+            chmod -R +x install/ tools/ci/
+      - name: Simulate accel
+        run: |
+          source install/setup.bash
+          ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=9090 >/dev/null 2>&1 &
+          echo "Visualize at: https://app.foxglove.dev/~/view?ds=foxglove-websocket&ds.url=ws://129.132.161.41:9090"
+          ./tools/ci/pipeline_launchers/accel.sh >/dev/null 2>&1 &
+          ./tools/ci/listen_finish.sh

@@ -1,0 +1,12 @@
+[Unit]
+Description=Start PTP server on lidar interface
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=root
+ExecStart=/usr/sbin/ptp4l -i enp6s0 -m -f /etc/linuxptp/ptp4l.conf
+
+[Install]
+WantedBy=graphical.target

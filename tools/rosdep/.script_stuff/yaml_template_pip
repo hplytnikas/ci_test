@@ -1,0 +1,4 @@
+$dep_name:
+  ubuntu:
+      pip:
+        packages: [$actual_dep_name]

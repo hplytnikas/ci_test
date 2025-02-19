@@ -1,0 +1,55 @@
+skidpad_handler_node:
+  ros__parameters:
+    velocity_estimation_topic: "/vcu_msgs/velocity_estimation"
+    mission_finished_topic: "/vcu_msgs/mission_finished"
+    max_velocity_topic: "/control/max_velocity"
+    brake_controller_topic: "/control/brake_controller"
+    reference_topic: "/planning/reference"
+    lane_width_left: 1.1
+    lane_width_right: -1.1
+    mission_finished_velocity_threshold: 1.0
+    frequency: 10.0
+    # path_file: "/trajectory/LapTimeOptimization.csv"
+    path_file: "/trajectory/Script.csv"
+    num_points_published: 200
+
+    # Remember to change:
+    # 1. Trajectory file
+    # 2. Velocity profile indices
+    # 3. Stop index
+
+    # The velocity profile is a list of velocities that the vehicle should follow
+    # at the given indices from the loaded path.
+    # It should always have the index 0 to ensure the vehicle starts moving.
+
+    # Very save params (from wet tires night)
+    # velocity_profile_indices: [0, 500, 1000, 1001, 1400, 2100]
+    velocity_profile_indices: [0, 592, 1173, 1174, 1638, 2451]
+    velocity_profile: [9.5, 11.0, 11.0, 8.0, 11.0, 11.0]
+
+    # Risky params
+    # velocity_profile_indices: [0, 500, 700, 1000, 1001, 1100, 1400, 1550, 1900, 2100]
+    # velocity_profile_indices: [0, 592, 824, 1173, 1174, 1290, 1638, 1812, 2219, 2451]
+    # velocity_profile: [10.0, 11.5, 11.5, 11.5, 9.0, 9.0, 11.5, 11.5, 11.5, 11.5]
+
+    # Record params
+    # velocity_profile_indices: [0, 500, 700, 1000, 1001, 1400, 1550, 1900, 2100]
+    # velocity_profile_indices: [0, 592, 824, 1173, 1174, 1638, 1812, 2219, 2451]
+    # velocity_profile: [10.0, 11.8, 11.8, 12.6, 8.0, 11.8, 11.8, 12.6, 12.6]
+
+    # Record params but lighter
+    # velocity_profile_indices: [0, 500, 700, 1000, 1001, 1400, 1550, 1900, 2100]
+    # velocity_profile_indices: [0, 592, 824, 1173, 1174, 1638, 1812, 2219, 2451]
+    # velocity_profile: [10.0, 11.5, 11.5, 12.0, 8.0, 11.5, 11.5, 12.0, 12.0]
+
+    # when running mpc, we give terminal velocities to the controller
+    # velocity_profile_indices: [0, 500, 1050, 1051, 1400, 2100]
+    # velocity_profile: [3.5, 3.5, 3.0, 2.0, 3.5, 3.5]
+
+    # FSEast try faster params
+    # velocity_profile_indices: [0, 500, 700, 1000, 1001, 1400, 1550, 1900, 2100]
+    # velocity_profile_indices: [10, 592, 824, 1173, 1174, 1638, 1812, 2219, 2451]
+    # velocity_profile: [10.0, 11.8, 11.8, 12.6, 9.0, 12.0, 12.0, 12.8, 12.8]
+
+    # index_mission_finished: 1970 #1920 for earlier stop in case of less runoff area
+    index_mission_finished: 2300

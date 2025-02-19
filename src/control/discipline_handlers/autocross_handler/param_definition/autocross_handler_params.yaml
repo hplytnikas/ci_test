@@ -1,0 +1,56 @@
+autocross_handler_params:
+  lap_count_topic: {
+    type: string,
+    default_value: "/lap_count",
+    read_only: true
+  }
+  velocity_estimation_topic: {
+    type: string,
+    default_value: "/vcu_msgs/velocity_estimation",
+    read_only: true
+  }
+  mission_finished_topic: {
+    type: string,
+    default_value: "/vcu_msgs/mission_finished",
+    read_only: true
+  }
+  max_velocity_topic: {
+    type: string,
+    default_value: "/control/max_velocity",
+    read_only: true
+  }
+  brake_controller_topic: {
+    type: string,
+    default_value: "/control/brake_controller",
+    read_only: true
+  }
+  local_reference_topic: {
+    type: string,
+    default_value: "/planning/local_reference",
+    read_only: true
+  }
+  reference_topic: {
+    type: string,
+    default_value: "/planning/reference",
+    read_only: true
+  }
+  num_laps: {
+    type: int,
+    default_value: 1,
+    read_only: true
+  }
+  mission_finished_velocity_threshold: {
+    type: double,
+    default_value: 1.0,
+    read_only: true
+  }
+  max_velocity: {
+    type: double,
+    default_value: 5.0,
+    read_only: true
+  }
+  max_velocity_publish_frequency: {
+    type: double,
+    default_value: 1.0,
+    read_only: true
+  }

@@ -1,0 +1,2 @@
+$dep_name:
+  ubuntu: [$actual_dep_name]

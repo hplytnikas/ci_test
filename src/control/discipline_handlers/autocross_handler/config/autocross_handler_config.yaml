@@ -1,0 +1,13 @@
+autocross_handler_node:
+  ros__parameters:
+    lap_count_topic: /lap_count
+    velocity_estimation_topic: /vcu_msgs/velocity_estimation
+    mission_finished_topic: /vcu_msgs/mission_finished
+    max_velocity_topic: /control/max_velocity
+    brake_controller_topic: /control/brake_controller
+    local_reference_topic: /planning/local_reference
+    reference_topic: /planning/reference
+    num_laps: 1
+    mission_finished_velocity_threshold: 1.0
+    max_velocity: 6.0
+    max_velocity_publish_frequency: 1.0

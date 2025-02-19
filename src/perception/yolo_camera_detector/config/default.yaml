@@ -1,0 +1,38 @@
+yolo_camera_detector:
+  ros__parameters:
+    debug: false
+    profiling_enabled: true
+
+    use_gpu: true
+    enable_orange_cones: true
+    night_mode: false      # If true, yolo detector will artificially increase brightness and contrast of the image
+
+    buffer_size: 1         # Buffer size for image subscription
+
+    # Topics
+    topics:
+      sub:
+        fw_cam: "/forward_camera/pylon_ros2_camera_node/image_raw"
+      pub:
+        fw_bbox: "/perception/yolo_camera_detector/forward_bbox"
+        debug:
+          fw_overlay: "/perception/yolo_camera_detector/debug/forward_overlay"
+        runtime: "/perception/runtimes"
+
+    # Yolo parameters
+    image_width: 2592       # image size y, must be multiple of max stride 32
+    image_height: 352
+    scaleFactor: 1          # if 1 no downsampling
+
+    confThreshold: 0.25     # Yolo object detection confidence threshold
+    iouThreshold: 0.7       # for NMS
+
+    # Cone height (m)
+    small_cone_height: 0.329
+    large_cone_height: 0.505
+
+    bounding_box_filter_height: 1000 # in pixels
+    brightness: 140 # Total average brightness of the YOLO input image
+    contrast: 1.0 # 1.0 if required input YOLO contrast is same as camera image
+
+    weights: "/.amz/best_2560s.onnx"

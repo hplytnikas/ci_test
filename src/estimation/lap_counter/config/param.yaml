@@ -1,0 +1,7 @@
+lap_counter:
+  ros__parameters:
+    ###IMPORTANT###
+    # The offset must be lower than the moving distance condition, otherwise the first offset will be counted as a lap
+    offset: 8.0
+    moving_distance_condition: 15.0
+    start_radius: 2.0

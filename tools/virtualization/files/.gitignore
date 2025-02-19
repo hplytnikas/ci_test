@@ -1,0 +1,6 @@
+# Ignore everything in this directory
+# Because:  1. Something needs to be in this directory for git to see it
+#           2. Contents in this folder are auxilary, and for the user to easily share data between docker and host (bad idea to push them)
+*
+# Except this file
+!.gitignore

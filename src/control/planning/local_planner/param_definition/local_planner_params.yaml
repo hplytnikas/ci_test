@@ -1,0 +1,213 @@
+local_planner_params:
+  # ENABLE flags
+    enable_opt: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+    enable_profiler: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+    enable_visualisation: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+    enable_current_vel_init: {
+      type: bool,
+      default_value: false,
+      read_only: false
+    }
+    enable_straight_line_stopper: {
+      type: bool,
+      default_value: false,
+      read_only: false
+    }
+
+  # ROS TOPICS
+    path_subscriber_topic: {
+      type: string,
+      default_value: "/estimation/bounded_path",
+      read_only: false
+    }
+    VE_subscriber_topic: {
+      type: string,
+      default_value: "/vcu_msgs/velocity_estimation",
+      read_only: false
+    }
+    travelled_distance_subscriber_topic: {
+      type: string,
+      default_value: "/distance_traveled",
+      read_only: false
+    }
+    local_reference_publisher_topic: {
+      type: string,
+      default_value: "/planning/local_reference",
+      read_only: false
+    }
+    local_reference_viz_publisher_topic: {
+      type: string,
+      default_value: "/planning/viz/local_reference",
+      read_only: false
+    }
+    log_publisher_topic: {
+      type: string,
+      default_value: "/planning/local_reference/log",
+      read_only: false
+    }
+
+  # PARAMETER flags
+    car_width: {
+      type: double,
+      default_value: 1.5,
+      read_only: false
+    }
+    safety_margin: {
+      type: double,
+      default_value: 0.7,
+      read_only: false
+    }
+    nb_iter: {
+      type: int,
+      default_value: 15,
+      read_only: false
+    }
+    sampling_resolution: {
+      type: int,
+      default_value: 40,
+      read_only: false
+    }
+    max_lateral_acceleration: {
+      type: double,
+      default_value: 2.7,
+      read_only: false
+    }
+    min_longitudinal_speed: {
+      type: double,
+      default_value: 5.0,
+      read_only: false
+    }
+    max_longitudinal_speed: {
+      type: double,
+      default_value: 10.0,
+      read_only: false
+    }
+    curvature_smoothness: {
+      type: int,
+      default_value: 1,
+      read_only: false
+    }
+    gaussian_kernel_std: {
+      type: double,
+      default_value: 4.0,
+      read_only: false
+    }
+    straight_line_distance_threshold: {
+      type: double,
+      default_value: 70.0,
+      read_only: false
+    }
+    straight_line_curvature_threshold: {
+      type: double,
+      default_value: 0.05,
+      read_only: false
+    }
+    first_point_fixed: {
+      type: bool,
+      default_value: false,
+      read_only: false
+    }
+    last_point_fixed: {
+      type: bool,
+      default_value: false,
+      read_only: false
+    }
+    closed_path: {
+      type: bool,
+      default_value: true,
+      read_only: false
+    }
+    max_curvature: {
+      type: double,
+      default_value: 0.5,
+      read_only: false
+    }
+    max_distance: {
+      type: double,
+      default_value: 9.0,
+      read_only: false
+    }
+    kappa_shift: {
+      type: double,
+      default_value: 0.05,
+      read_only: false
+    }
+
+    # HPIPM parameters
+    mode: {
+      type: int,
+      default_value: 2,
+      read_only: false
+    }
+    iter_max: {
+      type: int,
+      default_value: 10,
+      read_only: false
+    }
+    alpha_min: {
+      type: double,
+      default_value: 0.0001,
+      read_only: false
+    }
+    mu0: {
+      type: double,
+      default_value: 1.0,
+      read_only: false
+    }
+    tol_stat: {
+      type: double,
+      default_value: 0.0001,
+      read_only: false
+    }
+    tol_eq: {
+      type: double,
+      default_value: 0.0001,
+      read_only: false
+    }
+    tol_ineq: {
+      type: double,
+      default_value: 0.0001,
+      read_only: false
+    }
+    tol_comp: {
+      type: double,
+      default_value: 0.0001,
+      read_only: false
+    }
+    reg_prim: {
+      type: double,
+      default_value: 0.000001,
+      read_only: false
+    }
+    reg_dual: {
+      type: double,
+      default_value: 0.000001,
+      read_only: false
+    }
+    warm_start: {
+      type: int,
+      default_value: 0,
+      read_only: false
+    }
+    pred_corr: {
+      type: int,
+      default_value: 1,
+      read_only: false
+    }
+    split_step: {
+      type: int,
+      default_value: 1,
+      read_only: false
+    }

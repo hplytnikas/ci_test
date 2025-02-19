@@ -1,0 +1,20 @@
+inspection_controller_node:
+  ros__parameters:
+    # General controller parameters
+    velocity_estimation_topic: /vcu_msgs/velocity_estimation
+    steering_topic: /vcu_msgs/steering_feedback
+    path_topic: /estimation/bounded_path
+    car_command_topic: /control/car_command
+    controller_frequency: 40.0
+    controller_timeout_reset: 12000
+    controller_timeout_fatal: 12000
+
+    # Inspection controller parameters
+    ax: 0.1
+    steering_frequency: 0.25
+    steering_amplitude: 0.45
+    duration: 27.5
+
+inspection_visualization_node:
+  ros__parameters:
+    mission_finished_topic: /vcu_msgs/mission_finished

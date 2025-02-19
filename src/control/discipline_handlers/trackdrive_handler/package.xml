@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>trackdrive_handler</name>
+  <version>0.0.0</version>
+  <description>
+  This contains the Trackdrive handler. It will do the mission specific stuff. It will change from local to global planning.
+  </description>
+  <maintainer email="johnemus@ethz.ch">Jonas</maintainer>
+  <maintainer email="hakiyama@ethz.ch">Hironobu</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>vcu_msgs</depend>
+  <depend>autonomous_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>control_msgs</depend>
+  <depend>generate_parameters_library</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

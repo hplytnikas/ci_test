@@ -1,0 +1,14 @@
+std_msgs/Header header
+
+float32 feedback_t_m_fl
+float32 feedback_t_m_fr
+float32 feedback_t_m_rl
+float32 feedback_t_m_rr
+
+float32 reference_t_m_fl
+float32 reference_t_m_fr
+float32 reference_t_m_rl
+float32 reference_t_m_rr
+
+float32 estimated_limit
+float32 driverrequest

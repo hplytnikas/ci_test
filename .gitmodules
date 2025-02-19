@@ -1,0 +1,24 @@
+[submodule "src/control/controllers/mpc/solvers/codegenerated_solvers"]
+	path = src/control/controllers/mpc/solvers/codegenerated_solvers
+	url = git@github.com:AMZ-Racing/codegenerated_solvers.git
+
+[submodule "src/drivers/pylon-ros-camera"]
+	path = src/drivers/pylon-ros-camera
+	url = git@github.com:basler/pylon-ros-camera.git
+	branch = humble
+
+[submodule "src/drivers/HesaiLidar_ROS_2.0"]
+	path = src/drivers/HesaiLidar_ROS_2.0
+	url = https://github.com/HesaiTechnology/HesaiLidar_ROS_2.0.git
+
+[submodule "src/drivers/fixposition_gnss_tf"]
+	path = src/drivers/fixposition_gnss_tf
+	url = https://github.com/fixposition/fixposition_gnss_tf.git
+
+[submodule "src/drivers/fixposition_driver"]
+	path = src/drivers/fixposition_driver
+	url = https://github.com/AMZ-Racing/fixposition_driver.git
+
+[submodule "src/amzsim/amzsim_backend/amzsim_codegen_model/codegen_vehicle_model"]
+	path = src/amzsim/amzsim_backend/amzsim_codegen_model/codegen_vehicle_model
+	url = git@github.com:AMZ-Racing/codegen_vehicle_model.git

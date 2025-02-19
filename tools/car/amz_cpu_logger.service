@@ -1,0 +1,10 @@
+[Unit]
+Description=Start the cpu log service
+
+[Service]
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+User=amz
+ExecStart=/usr/local/bin/amz_cpu_logger
+
+[Install]
+WantedBy=graphical.target

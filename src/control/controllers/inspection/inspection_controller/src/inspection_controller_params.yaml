@@ -1,0 +1,30 @@
+inspection_controller_params:
+  ax: {
+    type: double,
+    default_value: 0.1, # We need some low speed for inspection
+    read_only: true,
+  }
+  steering_frequency: {
+    type: double,
+    default_value: 1, # Frequency of the sine wave for steering
+    read_only: true,
+    validation: {
+      bounds<>: [0, 5]
+    }
+  }
+  steering_amplitude: {
+    type: double,
+    default_value: 0.5, # Amplitude of the sine wave for steering
+    read_only: true,
+    validation: {
+      bounds<>: [0, 0.5]
+    }
+  }
+  duration: {
+    type: double,
+    default_value: 27.5, # Duration of the inspection
+    read_only: true,
+    validation: {
+      gt<>: [0]
+    }
+  }

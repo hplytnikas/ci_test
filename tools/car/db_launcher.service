@@ -1,0 +1,13 @@
+[Unit]
+Description=ROS2 Dashboard Launcher
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=bash tools/car/run_db_launcher.sh
+Restart=always
+User=amz
+WorkingDirectory=/home/amz/autonomous_2024
+
+[Install]
+WantedBy=multi-user.target

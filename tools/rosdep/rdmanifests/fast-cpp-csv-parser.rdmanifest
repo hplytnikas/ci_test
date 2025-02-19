@@ -1,0 +1,31 @@
+uri: 'file:///etc/ros/rosdep/amz/empty.tar'
+
+md5sum: 1276481102f218c981e0324180bafd9f
+
+install-script: |
+  #!/bin/bash
+
+  SUDO=
+  if [ "$(id -u)" -ne 0 ]; then
+    SUDO=sudo
+  fi
+
+  install_dir="/usr/local/share/amz"
+  $SUDO mkdir -p $install_dir
+
+  cd "$install_dir"
+  if [ ! -d "$install_dir/fast-cpp-csv-parser" ]; then
+    $SUDO git clone https://github.com/ben-strasser/fast-cpp-csv-parser.git
+  fi
+
+check-presence-script: |
+  #!/bin/bash
+
+  install_dir="/usr/local/share/amz"
+
+  # Check for the existence of fast-cpp-csv-parser.git in the system-wide installation path
+  if [ -d "$install_dir/fast-cpp-csv-parser" ]; then
+    exit 0; # Exists, exit with code 0 to indicate success
+  else
+    exit 1; # Does not exist, exit with code 1 to indicate failure
+  fi

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot name="$(arg robot_name)" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- FOr the moment contains the chassis only -->
+    <xacro:property name="dist" value="${xacro.load_yaml('$(arg car_dimensions)')}"/>
+
+    <!-- Includes the vehicle body-->
+    <xacro:include filename="$(find amzsim_car_visualization)/urdf/vehicle/vehicle_body.xacro"/>
+
+    <!-- ################################################################## -->
+    <!-- ############################# Chassis ############################ -->
+    <!-- ################################################################## -->
+    <xacro:body_chassis/>
+
+    <!-- TODO NEXT: Add the wheels, at the moment, they are not displayed, sin in fssim/azm_racecar for further improvement -->
+
+    <!-- #### Add the left rear wheel with its joints and tranmissions #### -->
+    <!-- <xacro:body_left_rear_wheel/>-->
+
+    <!-- #### Add the right rear wheel with its joints and tranmissions #### -->
+    <!-- <xacro:body_right_rear_wheel/> -->
+
+    <!-- #### Add the left front wheel with its joints, steering and tranmissions #### -->
+    <!-- <xacro:body_left_front_wheel/> -->
+
+    <!-- #### Add the right front wheel with its joints, steering and tranmissions #### -->
+    <!-- <xacro:body_right_front_wheel/> -->
+
+
+
+</robot>

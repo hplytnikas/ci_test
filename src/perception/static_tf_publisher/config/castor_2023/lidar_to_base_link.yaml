@@ -1,0 +1,17 @@
+# Translation in meter [m]
+# Rotation in Quaternions
+
+generated_at: '2023-05-30'
+source_frame: os_sensor
+target_frame: egomotion
+
+# Ouster
+rotation:
+    qx: 0
+    qy: 0.0348995
+    qz: 0
+    qw: 0.9993908
+translation:
+    x: -0.353768
+    y: 0.0
+    z: 0.73931

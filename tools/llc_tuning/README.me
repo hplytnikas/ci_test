@@ -1,0 +1,6 @@
+This scipt is used to update parameters in the VCU.It is discussed here[here](https://amzracing.slack.com/archives/CDJ2S6HT3/p1713428494361649). It modifies a json file in the VCU to change the parameters using FTP and then executes a command using SSH to make the VCU reload the parameters from that file. The file is located in the VCU at `applications/{modelName}/paramSet/paramInfo.json` where `modelName` is the name of the model that the VCU is running. The command ran with SSH is `slrealtime loadParamSet -F paramInfo` which reloads the parameters from the file.
+
+## Usage
+**Step 1:** Chose the parameters to update in params_to_change.json. The name of the parameter will have all the subsystems it is in separated by a `/` and then the name of the parameter. If it is a gain it will have the word gain and if it is a constant it has the word value at the end. To find the name of the parameter you can look at the json file in the VCU which is downloaded by the script on this folder.
+
+**Step 2:** Run the script load_params.py. Be aware to set the correct IP address of the VCU, model name, and login credentials in the script.

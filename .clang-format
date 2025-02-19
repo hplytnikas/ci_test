@@ -1,0 +1,10 @@
+# .clang-format file
+
+# Use tabs instead of spaces for indentation
+IndentWidth: 2
+
+# Allow short if statements to be on a single line
+AllowShortIfStatementsOnASingleLine: true
+
+# Set a different maximum line length
+ColumnLimit: 120

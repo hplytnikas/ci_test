@@ -1,0 +1,16 @@
+# Translation in meter [m]
+# Rotation in quaternions
+
+generated_at: '2024-07-30 23:51:14'
+source_frame: pylon_camera
+target_frame: hesai_lidar
+
+rotation:
+  qw: -0.4917796431644192
+  qx: 0.5099349124916289
+  qy: 0.4994100751826875
+  qz: -0.49870707273634485
+translation:
+  x: 0.33291550379773244
+  y: 0.04217815026365793
+  z: -0.09050011586422582

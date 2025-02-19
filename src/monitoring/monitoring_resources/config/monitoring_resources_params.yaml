@@ -1,0 +1,4 @@
+monitoring_resources_node:
+  ros__parameters:
+    publish_frequency: 1.0
+    topic_name: '/monitoring/pc_resource_stats'

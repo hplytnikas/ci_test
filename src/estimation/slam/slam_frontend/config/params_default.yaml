@@ -1,0 +1,155 @@
+slam:
+  ros__parameters:
+    # Custom visualization enabled
+    visualization_enabled: true
+    # Profiling using easy profiler
+    profiling:
+      # Enable/disable profiling
+      enabled: true
+      # File path to store results
+      save_file_path: "profiler/"
+    # Rclcpp logs
+    logging:
+      # Logging throttle in seconds
+      throttle: 2.0
+
+    # Determines the mission type
+    # (0:acceleration, 1:skidpad, 2:autoX, 3:trackdrive)
+    mission_type: 3
+    # Determines if mapping mode is on (false => localization only, no new cones added)
+    mapping_mode: true
+    # Enables saving the map when mission is finished
+    save_map_on_mission_finished: false
+    # Enables saving the trajectory when mission is finished
+    save_trajectory_on_mission_finished: false
+
+    # All parameters related to data association
+    data_association:
+      # Data association algorithm ("nearest_neighbor")
+      algorithm: "nearest_neighbor"
+      # Parameters related to nearest neighbor data association
+      nearest_neighbor:
+        # If a new cone is not within this distance from
+        # an existing cone, it will be treated as a new cone in the graph.
+        # Otherwise it will be associated to an existing cone.
+        min_distance_threshold_m: 1.2
+
+    # All parameters related to the slam backend
+    slam_backend:
+      # Slam backend algorithm ("graph_slam", "fixed_lag_smoothing", "isam2")
+      algorithm: "graph_slam"
+      # Parameters related to graph slam
+      graph_slam:
+        # The maximum allowed total edges in the graph
+        max_edges: 10000
+        # GTSAM symbol for odometry
+        pose_symbol: "X"
+        # GTSAM symbol for landmarks
+        landmark_symbol: "L"
+        # TODO(Christoforos) Future modifications for performance
+        # Maximium number of iterations for the GTSAM optimizer
+        optimizer_iterations: 3
+        # Error tolerance for GTSAM optimizer
+        optimizer_error_tolerance: 0.1
+        # Noise model: prior of odometry
+        pose_prior_noise: [0.01, 0.01, 0.01]
+        # Noise model: odometry
+        pose_noise: [1.0, 1.0, 0.5] # [1.0, 1.0, 0.5] # [0.5, 1.5, 1.5] # [0.5, 0.5, 0.5]
+        # Noise model: prior of landmarks (fixed map)
+        landmark_prior_noise: [0.01, 0.01]
+        # Noise model: cone observations (bearing, range)
+        landmark_noise: [0.1, 1.5] # [0.1, 1.5] # [0.1, 0.7] # [0.9, 0.9]
+      # Parameters related to fixed lag smoothing
+      fixed_lag_smoothing:
+        # Lag used for pruning
+        lag: 750.0
+        # GTSAM symbol for odometry
+        pose_symbol: "X"
+        # GTSAM symbol for landmarks
+        landmark_symbol: "L"
+        # TODO(Christoforos) Future modifications for performance
+        # Maximium number of iterations for the GTSAM optimizer
+        optimizer_iterations: 3
+        # Error tolerance for GTSAM optimizer
+        optimizer_error_tolerance: 0.1
+        # Noise model: prior of odometry
+        pose_prior_noise: [0.01, 0.01, 0.01]
+        # Noise model: odometry
+        pose_noise: [0.5, 1.0, 1.0]
+        # Noise model: prior of landmarks (fixed map)
+        landmark_prior_noise: [0.01, 0.01]
+        # Noise model: cone observations (bearing, range)
+        landmark_noise: [1.0, 0.7]
+
+    # GlobalMapTracker parameters
+    global_map_tracker:
+      probability_updates_enabled: true
+      cone_ignore_enabled: true
+      # Minimum number of times a cone needs to be observed to be added to the map
+      min_observation_count: 3 # 2
+      # Timeframe that cone has to be observed in more than min_observation_count to be added to the map
+      accepted_cone_observation_timeframe_s: 5
+      # Minimum cone probability for cone to be processed
+      min_cone_probability: 0.4
+      # Trust color measurements more for close cones
+      color_trust:
+        # Fully trust color of cones closer than close_threshold (color_trust = 1)
+        close_threshold: 7.0 # 8.0
+        # Don't trust color of cones further away than far_threshold (color_trust = far_trust)
+        # For cones inbetween: interpolate linearly based on range
+        far_threshold: 15.0 # 25.0
+        min_value: 0.3
+
+    # The topics used by SLAM to communicate with other modules
+    topics:
+      sub:
+        # Topic for receiving cone array from perception
+        cone_callback: "/perception/cone_array"
+        # Topic for receiving lap counter messages
+        lap_counter_callback: "/lap_count"
+        # Topic for seeing if car has moved
+        vehicle_moving_callback: "/moving"
+        # Topic for checking if the mission has finished
+        mission_finished_callback: "/vcu_msgs/mission_finished"
+      pub:
+        # Topic for publishing the online map
+        online_map: "/estimation/online_map"
+        # Topic for publishing acceleration map generation status
+        acceleration_map_status: "/estimation/acceleration_map_status"
+
+    map_loader:
+      map:
+        # The file path to load the map
+        load_file_path: "src/amzsim/amzsim_backend/amzsim_tracks/tracks_csv/standard/autocross_trackdrive/map.csv" # "src/estimation/slam/slam_frontend/maps/map.csv"
+        # The file path to save the map
+        save_file_path: "src/amzsim/amzsim_backend/amzsim_tracks/tracks_csv/standard/autocross_trackdrive/" # "src/estimation/slam/slam_frontend/maps/"
+        # Parameters for the acceleration map
+        acceleration:
+          # The track length from start to finish line in meters
+          track_first_part_length_m: 75.0
+          # The track length from finish line until end of orange cones in meters
+          track_second_part_length_m: 75.0
+          # The number of blue or yellow cones in one of the boundaries (counted manually)
+          # NOT INCLUDING ORANGE CONES!
+          num_boundary_cones: 14
+          # The number of orange cones after finish line in one of the boundaries (counted manually)
+          # NOT INCLUDING BIG ORANGE CONES!
+          num_boundary_orange_cones: 15
+          # Max track width (blue to yellow) distance meters
+          max_track_width_y_m: 6.0
+          # Distance from car to first blue/yellow cones (estimated manually)
+          # Cones less than this distance are ignored
+          estimated_first_cones_distance_x_m: 3.0
+          # Distance between big orange cones in x (estimated manually)
+          estimated_big_orange_cone_distance_x_m: 1.0
+          # Minimum distance between blue/yellow cones in x in meters
+          min_cone_distance_x_m: 2.0
+          # Maximum distance between blue/yellow cones in x in meters
+          max_cone_distance_x_m: 5.5
+          # How much weight is put on perception measured distance
+          perception_observation_weight: 0.2
+          # How many cones should be detected (per boundary) to build a good map
+          min_num_detected_cones: 2
+      trajectory:
+        # The file path to save the trajectory (pose array)
+        save_file_path: "src/estimation/slam/slam_frontend/maps/"

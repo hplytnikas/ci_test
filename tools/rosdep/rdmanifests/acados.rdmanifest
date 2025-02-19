@@ -1,0 +1,46 @@
+uri: 'file:///etc/ros/rosdep/amz/empty.tar'
+
+md5sum: 1276481102f218c981e0324180bafd9f
+
+install-script: |
+  #!/bin/bash
+  SUDO=
+  if [ "$(id -u)" -ne 0 ]; then
+    SUDO=sudo
+  fi
+
+  cache_dir="/usr/local/share/amz/cache"
+  install_dir="/usr/local/share/amz/acados"
+
+  $SUDO mkdir -p $cache_dir
+  cd $cache_dir
+
+  # if does not exist in cache then build it
+  if [ ! -e "$cache_dir/acados" ]; then
+
+    $SUDO git clone https://github.com/acados/acados.git
+
+    cd acados
+    $SUDO git checkout "v0.3.5_stable"
+    $SUDO git submodule update --recursive --init
+    $SUDO mkdir build
+    cd build
+
+    $SUDO cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-Ofast ..
+    $SUDO make install -j4
+  fi
+
+  $SUDO mkdir -p $install_dir
+  $SUDO cp -a "$cache_dir/acados/include" "$install_dir/"
+  $SUDO cp -a "$cache_dir/acados/lib" "$install_dir/"
+
+  echo "Acados successfully installed !!"
+
+check-presence-script: |
+  #!/bin/bash
+  install_dir="/usr/local/share/amz/acados"
+  if [ -d "$install_dir" ]; then
+    exit 0; # Exists, exit with code 0 to indicate success
+  else
+    exit 1; # Does not exist, exit with code 1 to indicate failure
+  fi

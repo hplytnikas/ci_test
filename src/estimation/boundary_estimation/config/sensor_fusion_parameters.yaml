@@ -1,0 +1,53 @@
+delaunay_search:
+  ros__parameters:
+    sensor_fusion:
+      desired_length: 40.0 # [meters] desired length of the path
+      desired_max_angle_change: 40.0 # [degree] desired maximum angle change between edges in a path
+      desired_boundary_std: 1.0 # [meters] desired standard deviation of the distance of the boundary cones
+      desired_witdh_std: 0.8 # [meters] desired standard deviation of the width of the path
+
+      #weight values that need to sum up to 1 (excluding prior_w)
+      length_error_w: 0.40
+      track_width_w: 0.20
+      step_angle_w: 0.20
+      cones_distance_var_w: 0.10 # this one will appear twice, so it counts x2
+
+      prior_w: 1.0
+
+      #threshold values
+      maximum_number_of_far_distant_cones: 2 # maximum number of cones that can be more than 5m far from the previous cone (allow sporadic missing cone)
+      maximum_number_of_far_distant_cones_relaxation_offset: 1 # offset to the maximum number of cones that can be more than 5m far from the previous cone (allow sporadic missing cone)
+
+      minimum_segment_width: 2.7 # [meters] minimum width allowed between a left and a right cone
+      minimum_segment_width_relaxation_offset: 0.2 # [meters] offset to the minimum width allowed between a left and a right cone
+
+      maximum_segment_width: 7.0 # [meters] maximum width allowed between a left and a right cone
+      maximum_segment_width_relaxation_offset: 0.3 # [meters] offset to the maximum width allowed between a left and a right cone
+
+      minimum_track_width: 2.7 # [meters] minimum width allowed for a track
+      minimum_track_width_relaxation_offset: 0.3 # [meters] offset to the minimum width allowed for a track
+
+      maximum_track_width: 6.5 # [meters] maximum width allowed for a track
+      maximum_track_width_relaxation_offset: 0.2 # [meters] offset to the maximum width allowed for a track
+
+      maximum_angle_change: 65.0 # [degree] maximum angle changed allowed between edges in a path
+      maximum_angle_change_relaxation_offset: 4.0 # [degree] maximum angle changed allowed between the last two segments
+
+      minimum_path_segment_length: 0.65 # [meters] minimum lenght of the segment from 2 midpoints
+      minimum_path_segment_length_relaxation_offset: 0.2 # [meters] offset to the minimum lenght of the segment from 2 midpoints
+
+      maximum_path_segment_length: 6.0 # [meters] maximum lenght of the segment from 2 midpoints
+      maximum_path_segment_length_relaxation_offset: 0.5 # [meters] offset to the maximum lenght of the segment from 2 midpoints
+
+      maximum_end_angle_change: 20.0 # [degree] maximum angle changed allowed between the last two segments
+      minimum_presence_probability: 0.2 # [probability] minimum probability of the cone existance to be considered in the graph
+      maximum_boundary_segment_length: 5.5 # [meters] maximum lenght of the segment from 2 consecutive boundary cones
+      minimum_path_length: 5.0 # [meters] minimum lenght of a candidate path to be considered admissible
+      # CHANGE THIS IF YOU WANT LONGER PATH, not minimum_path_length
+      desirable_minimum_path_length: 10.0 # [meters] desirable minimum lenght of the full path
+      #color handling parameters
+      use_orange: true
+
+      #runtime constraints
+      max_number_of_leaves: 16.0  # max number of leaves saved; if there are more, the worst are discarded
+      number_of_iterations: 32.0  # after this number of iterations, search stops

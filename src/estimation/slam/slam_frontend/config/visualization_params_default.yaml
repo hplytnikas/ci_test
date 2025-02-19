@@ -1,0 +1,15 @@
+slam:
+  ros__parameters:
+    # Topics that the visualizer publishes to
+    visualization_topics:
+      # Visualized global map after every optimization step
+      global_map: /estimation/viz/optimized_global_map
+      # Visualized poses after every optimization step
+      poses: /estimation/viz/optimized_poses
+      # Visualized raw graph (before optimization)
+      raw_graph: /estimation/viz/raw_graph
+      # Visualized assoociations between cones
+      associations: /estimation/viz/association
+
+    # TODO(Christoforos)
+    # Add more params for colors and viz types etc.

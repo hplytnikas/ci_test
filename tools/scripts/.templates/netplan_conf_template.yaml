@@ -1,0 +1,6 @@
+$network_interface:
+  dhcp4: false
+  addresses:
+    - 10.42.0.241/24
+  nameservers:
+    addresses: [8.8.8.8, 8.8.4.4]

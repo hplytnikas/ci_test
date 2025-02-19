@@ -1,0 +1,63 @@
+onnxruntime:
+  ubuntu:
+    source:
+      uri: "file:///etc/ros/rosdep/amz/rdmanifests/onnxruntime.rdmanifest"
+
+libpcl-dev:
+  ubuntu: [libpcl-dev]
+
+libpcap-dev:
+  ubuntu: [libpcap-dev]
+
+libyaml-cpp-dev:
+  ubuntu: [libyaml-cpp-dev]
+
+libboost-dev:
+  ubuntu: [libboost-dev]
+
+cpplint:
+  ubuntu:
+      pip:
+        packages: [cpplint]
+
+pre-commit:
+  ubuntu:
+      pip:
+        packages: [pre-commit]
+
+pylon:
+  ubuntu:
+    source:
+      uri: "file:///etc/ros/rosdep/amz/rdmanifests/pylon.rdmanifest"
+
+gtsam-dev:
+  ubuntu: [libgtsam-unstable-dev, libgtsam-dev]
+
+easyprofiler:
+  ubuntu:
+    source:
+      uri: "file:///etc/ros/rosdep/amz/rdmanifests/easyprofiler.rdmanifest"
+
+acados:
+  ubuntu:
+    source:
+      uri: "file:///etc/ros/rosdep/amz/rdmanifests/acados.rdmanifest"
+
+fast-cpp-csv-parser:
+  ubuntu:
+    source:
+      uri: "file:///etc/ros/rosdep/amz/rdmanifests/fast-cpp-csv-parser.rdmanifest"
+
+customtkinter:
+  ubuntu:
+      pip:
+        packages: [customtkinter]
+paramiko:
+  ubuntu:
+      pip:
+        packages: [paramiko]
+
+gtsam-release:
+  ubuntu:
+    source:
+      uri: "file:///etc/ros/rosdep/amz/rdmanifests/gtsam-release.rdmanifest"

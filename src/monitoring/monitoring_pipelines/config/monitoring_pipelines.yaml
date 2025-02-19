@@ -1,0 +1,59 @@
+monitoring_pipelines_node:
+  ros__parameters:
+    pipeline_status_topic_name: "/monitoring/pipeline_status"
+    node_rate: 2.0  # [Hertz]
+
+    # Sensors
+    sensor_driver_camera:
+      topic_name: "/forward_camera/pylon_ros2_camera_node/image_raw"
+      expected_frequency: 10.0
+    sensor_driver_lidar:
+      topic_name: "/ouster/points"
+      expected_frequency: 10.0
+    velocity_estimation:
+      topic_name: "/vcu_msgs/velocity_estimation"
+      expected_frequency: 200.0
+    steering_feedback:
+      topic_name: "/vcu_msgs/steering_feedback"
+      expected_frequency: 200.0
+
+    # Perception
+    cone_camera:
+      topic_name: "/perception/camera/cone_array"
+      expected_frequency: 10.0
+    cone_lidar:
+      topic_name: "/perception/lidar/cone_array"
+      expected_frequency: 10.0
+    cone_fusion:
+      topic_name: "/perception/fusion/cone_array"
+      expected_frequency: 10.0
+    per_cones:
+      topic_name: "/perception/cone_array"
+      expected_frequency: 10.0
+
+    # Estimation
+    boundary_estimation:
+      topic_name: "/estimation/bounded_path"
+      expected_frequency: 10.0
+    online_map:
+      topic_name: "/estimation/online_map"
+      expected_frequency: -1.0
+
+    # Planning & Control
+    planning:
+      topic_name: "/planning/reference"
+      expected_frequency: 10.0
+    planning_local:
+      topic_name: "/planning/local_reference"
+      expected_frequency: 10.0
+    planning_global:
+      topic_name: "/planning/global_reference"
+      expected_frequency: 10.0
+    control:
+      topic_name: "/control/car_command"
+      expected_frequency: 40.0
+
+    # Others
+    res:
+      topic_name: "/can_msgs/res_state"
+      expected_frequency: -1.0

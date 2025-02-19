@@ -1,0 +1,12 @@
+{
+  "dufour/a_Core/VDC/Conversions/Subsystem Reference/Subsystem Reference/TP_ax_m/Value": 190.0,
+  "dufour/a_Core/VDC/Conversions/Subsystem Reference/Subsystem Reference/TP_ax_q/Value": 100.0,
+  "dufour/a_Core/VDC/Conversions/Subsystem Reference/Subsystem Reference/TP_ax_CdA/Value": 1.7688,
+  "dufour/a_Core/VDC/Conversions/Subsystem Reference/Subsystem Reference/TP_ax_peakOfGaussian/Value": 240.0,
+  "dufour/a_Core/VDC/Conversions/Subsystem Reference/Subsystem Reference/TP_ax_stdOfGaussian/Value": 0.1,
+  "dufour/a_Core/VDC/Conversions/Subsystem Reference/Subsystem Reference/TP_ax_P/Value": 250.0,
+  "dufour/a_Core/VDC/Conversions/Subsystem Reference/Subsystem Reference/TP_ax_I/Value": 100.0,
+  "dufour/a_Core/VDC/Conversions/Subsystem Reference/Subsystem Reference/TP_ax_D/Value": 10.0,
+  "dufour/a_Core/VDC/Conversions/Subsystem Reference/Subsystem Reference/TP_ax_PID_limit/Value": 900.0,
+  "dufour/a_Core/VDC/Conversions/Subsystem Reference/Subsystem Reference/TP_ax_lowpass_cutoff/Value": 6.28
+}

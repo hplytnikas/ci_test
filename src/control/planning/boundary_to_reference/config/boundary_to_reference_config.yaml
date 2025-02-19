@@ -1,0 +1,5 @@
+boundary_to_reference_node:
+  ros__parameters:
+    vx_ref: 5.0
+    bounded_path_topic: "/estimation/bounded_path"
+    reference_topic: "/planning/reference"

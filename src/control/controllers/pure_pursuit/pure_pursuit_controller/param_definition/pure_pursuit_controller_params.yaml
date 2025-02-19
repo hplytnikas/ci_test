@@ -1,0 +1,73 @@
+pure_pursuit_controller_params:
+    lookahead_distance_factor: {
+      type: double,
+      validation: {
+        gt_eq<>: [0.0]
+      }
+    }
+    lookahead_distance_min: {
+      type: double,
+      validation: {
+        gt_eq<>: [0.0]
+      }
+    }
+    lookahead_distance_max: {
+      type: double,
+      validation: {
+        gt_eq<>: [0.0]
+      }
+    }
+    wheelbase: {
+      type: double,
+      default_value: 1.5,
+    }
+    l_f: {
+      type: double,
+    }
+    l_r: {
+      type: double,
+    }
+    kp_longitudinal: {
+      type: double,
+      default_value: 10.0,
+    }
+    kd_longitudinal: {
+      type: double,
+      default_value: 0.5,
+    }
+    kp_lateral: {
+      type: double,
+      default_value: 0.0,
+    }
+    max_steering_pid: {
+      type: double,
+      default_value: 0.0,
+    }
+    max_acceleration_output: {
+      type: double,
+      default_value: 5.0,
+      validation: {
+        gt_eq<>: [0.0]
+      }
+    }
+    max_steering: {
+      type: double,
+      validation: {
+        gt_eq<>: [0.0]
+      }
+    }
+    steering_multiplier: {
+      type: double,
+      validation: {
+        gt_eq<>: [0.0]
+      }
+    }
+    velocity_lookahead_distance: {
+      type: double,
+      validation: {
+        gt_eq<>: [0.0]
+      }
+    }
+    mission: {
+      type: string,
+    }

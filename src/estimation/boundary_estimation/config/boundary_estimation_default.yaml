@@ -1,0 +1,41 @@
+delaunay_search:
+  ros__parameters:
+
+    profiling:
+      # Enable/disable profiling
+      enabled: true
+      # File path to store results
+      save_file_path: "profiler/"
+
+    # Rclcpp logs
+    logging:
+      # Enable/disable logging
+      enabled: true
+      # Logging throttle in seconds
+      throttle: 2.0 # not used atm
+
+    visualization:
+      # Enable/disable visualization
+      enabled: true
+
+    debug:
+      # Enable/disable debug
+      enabled: false
+
+    full_relaxation_enabled: false
+
+    topics:
+      # Topic for publishing the final path
+      track_topic_name: /estimation/bounded_path
+      # Topic for receiving the cone array
+      cone_array_topic_name: /estimation/online_map
+      # Topic for publishing the visualized delaunay triangulation
+      visual_topic_name: /estimation/be_visual_delaunay
+      # Topic for publishing the global map
+      global_map_topic_name: /estimation/visual_global_map
+      # Topic for receiving the lap count
+      lap_counter_topic_name: /lap_count
+      # Topic for publishing the final full path
+      final_path_topic_name: /estimation/final_path
+      # Topic for subsribing to the global map feedback
+      global_map_feedback_topic_name: /planning/global_reference/status

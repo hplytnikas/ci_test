@@ -1,0 +1,10 @@
+string discipline
+string track
+bool lapopt_launched_before
+bool rosbag_record
+bool rosbag_play
+string rosbag_path
+bool ve_gt
+bool perception_gt
+bool estimation_gt
+bool grip_estimation

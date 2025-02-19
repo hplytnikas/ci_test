@@ -1,0 +1,41 @@
+uri: 'file:///etc/ros/rosdep/amz/empty.tar'
+
+md5sum: 1276481102f218c981e0324180bafd9f
+
+install-script: |
+  #!/bin/bash
+
+  SUDO=
+  if [ "$(id -u)" -ne 0 ]; then
+    SUDO=sudo
+  fi
+
+  cache_dir="/usr/local/share/amz/cache"
+
+  $SUDO mkdir -p $cache_dir
+  cd $cache_dir
+
+  # if does not exist in cache then build it
+  if [ ! -e "$cache_dir/gtsam" ]; then
+    $SUDO git clone https://github.com/borglab/gtsam.git
+    cd gtsam
+    $SUDO mkdir build
+    cd build
+    $SUDO cmake .. -DCMAKE_BUILD_TYPE=Release
+  else
+  # if exists then go to the build directory
+    cd gtsam/build
+  fi
+
+  $SUDO make install
+
+  echo "GTSAM installed !"
+
+check-presence-script: |
+  #!/bin/bash
+  install_dir="/usr/local/include/gtsam"
+  if [ -d "$install_dir" ]; then
+    exit 0; # Exists, exit with code 0 to indicate success
+  else
+    exit 1; # Does not exist, exit with code 1 to indicate failure
+  fi

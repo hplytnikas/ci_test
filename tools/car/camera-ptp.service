@@ -1,0 +1,12 @@
+[Unit]
+Description=Start PTP server on camera interface
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=root
+ExecStart=/usr/sbin/ptpd -C -M -L -i enp5s0 &
+
+[Install]
+WantedBy=graphical.target

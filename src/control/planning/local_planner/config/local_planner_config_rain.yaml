@@ -1,0 +1,90 @@
+local_planner_node:
+  ros__parameters:
+    # enable the local minimum curvature optimisation
+    enable_opt: true
+
+    # enable profiling
+    enable_profiler: true
+
+    # enable visualisation
+    enable_visualisation: true
+
+    # enable initialisation of the speed based on the current speed
+    enable_current_vel_init: false
+
+    # enable the straight line stopper: if the path is straight and the car has travelled more than a threshold, the terminal velocities are decreased.
+    enable_straight_line_stopper: false
+
+    # ROS TOPICS
+    path_subscriber_topic: "/estimation/bounded_path"
+    VE_subscriber_topic: "/vcu_msgs/velocity_estimation"
+    travelled_distance_subscriber_topic: "/distance_traveled"
+    local_reference_publisher_topic: "/planning/local_reference"
+    local_reference_viz_publisher_topic: "/planning/viz/local_reference"
+    log_publisher_topic: "/planning/local_reference/log"
+
+    # The width of the car
+    car_width: 1.5
+
+    # The safety distance on each side
+    safety_margin: 0.6
+
+    # Number of iterations for the optimisation
+    nb_iter: 15
+
+    # The first point of the path must be fixed on the middle line
+    first_point_fixed: true
+
+    # The last point of the path must be fixed on the middle line
+    last_point_fixed: true
+
+    # The path is closed
+    closed_path: false
+
+    # Number of points to resample the path
+    sampling_resolution: 100
+
+    # Maximum lateral acceleration used to compute the speed
+    max_lateral_acceleration: 0.2
+
+    # Minimum longitudinal speed
+    min_longitudinal_speed: 0.01
+
+    # Maximum longitudinal speed
+    max_longitudinal_speed: 1.0
+
+    # Number of points around each point to consider for curvature smoothing
+    curvature_smoothness: 4
+
+    # Standard deviation of the gaussian kernel used for curvature smoothing
+    gaussian_kernel_std: 4.0
+
+    # Threshold to consider until the end of a straight line
+    straight_line_distance_threshold: 70.0
+
+    # Threshold to consider for a straight path
+    straight_line_curvature_threshold: 0.05
+
+    # Maximum curvature threshold to consider the point as feasible
+    max_curvature: 0.6
+
+    # Maximum distance between two points to consider the path as feasible
+    max_distance: 10.0
+
+    # Substracted curvature to shift lateraly the speed profile
+    kappa_shift: 0.0
+
+    # HPIPM parameters (more details in the min_curvature_opt.hpp)
+    mode: 2
+    iter_max: 50
+    alpha_min: 0.0001
+    mu0: 1.0
+    tol_stat: 0.0001
+    tol_eq: 0.0001
+    tol_ineq: 0.0001
+    tol_comp: 0.0001
+    reg_prim: 0.000001
+    reg_dual: 0.000001
+    warm_start: 0
+    pred_corr: 1
+    split_step: 1
