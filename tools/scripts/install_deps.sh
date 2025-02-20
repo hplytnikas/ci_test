@@ -1,27 +1,40 @@
 #!/bin/bash
 
 SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-REPO_ROOT_DIR="$( realpath $SCRIPTS_DIR/../..)"
+REPO_ROOT_DIR="$( realpath $SCRIPTS_DIR/../..) "
 ROSDEP_DIR="$REPO_ROOT_DIR/tools/rosdep"
 
+# Create necessary directories
 sudo mkdir -p /etc/ros/rosdep/amz/
-sudo mkdir -p /etc/ros/rosdep/amz/rdmanifests
 sudo mkdir -p /usr/local/share/amz
-sudo mkdir -p /etc/ros/rosdep/sources.list.d # needed at the later step, sometimes this directory is not generated on ros install
+sudo mkdir -p /etc/ros/rosdep/sources.list.d
 
+# Add the GTSAM repository
 sudo add-apt-repository -y ppa:borglab/gtsam-develop
 
-sudo cp $ROSDEP_DIR/amz.yaml /etc/ros/rosdep/amz/ # cp overrides with the new pulled one
-sudo cp -r $ROSDEP_DIR/rdmanifests /etc/ros/rosdep/amz/ # cp overrides
-sudo cp $ROSDEP_DIR/amz.list /etc/ros/rosdep/sources.list.d/ # cp overrides
-sudo cp $ROSDEP_DIR/empty.tar /etc/ros/rosdep/amz/
+# Add your custom APT repository
+echo "deb [trusted=yes] http://127.0.0.1:8081 stable main" | sudo tee /etc/apt/sources.list.d/custom-repo.list #129.132.161.48
 
+# Update APT package list
+sudo apt update
+
+# Copy rosdep manifest and lists
+sudo cp $ROSDEP_DIR/amz.yaml /etc/ros/rosdep/amz/
+sudo cp $ROSDEP_DIR/amz.list /etc/ros/rosdep/sources.list.d/
+
+# Setup local shared directory
 sudo mkdir -p /usr/local/share/amz
 ln -sfn /usr/local/share/amz ~/.amz
 
+# Source ROS setup
 source /opt/ros/humble/setup.bash
+
+# Update rosdep
 rosdep update
+
+# Install dependencies
 rosdep install -y -r --ignore-src --from-paths $REPO_ROOT_DIR/ "$@"
 
+# Ensure setup script is sourced
 echo "source $REPO_ROOT_DIR/tools/scripts/setup.sh" >> ~/.bashrc
 source $REPO_ROOT_DIR/tools/scripts/setup.sh
