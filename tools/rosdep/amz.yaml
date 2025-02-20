@@ -1,7 +1,23 @@
 onnxruntime:
-  ubuntu:
-    source:
-      uri: "file:///etc/ros/rosdep/amz/rdmanifests/onnxruntime.rdmanifest"
+  ubuntu: [onnx-runtime]
+
+pylon:
+  ubuntu: [pylon]
+
+easyprofiler:
+  ubuntu: [easy-profiler]
+
+acados:
+  ubuntu: [acados]
+
+fast-cpp-csv-parser:
+  ubuntu: [fast-cpp-csv-parser]
+
+gtsam-release:
+  ubuntu: [gtsam]
+
+gtsam-dev:
+  ubuntu: [libgtsam-unstable-dev, libgtsam-dev]
 
 libpcl-dev:
   ubuntu: [libpcl-dev]
@@ -17,47 +33,20 @@ libboost-dev:
 
 cpplint:
   ubuntu:
-      pip:
-        packages: [cpplint]
+    pip:
+      packages: [cpplint]
 
 pre-commit:
   ubuntu:
-      pip:
-        packages: [pre-commit]
-
-pylon:
-  ubuntu:
-    source:
-      uri: "file:///etc/ros/rosdep/amz/rdmanifests/pylon.rdmanifest"
-
-gtsam-dev:
-  ubuntu: [libgtsam-unstable-dev, libgtsam-dev]
-
-easyprofiler:
-  ubuntu:
-    source:
-      uri: "file:///etc/ros/rosdep/amz/rdmanifests/easyprofiler.rdmanifest"
-
-acados:
-  ubuntu:
-    source:
-      uri: "file:///etc/ros/rosdep/amz/rdmanifests/acados.rdmanifest"
-
-fast-cpp-csv-parser:
-  ubuntu:
-    source:
-      uri: "file:///etc/ros/rosdep/amz/rdmanifests/fast-cpp-csv-parser.rdmanifest"
+    pip:
+      packages: [pre-commit]
 
 customtkinter:
   ubuntu:
-      pip:
-        packages: [customtkinter]
+    pip:
+      packages: [customtkinter]
+
 paramiko:
   ubuntu:
-      pip:
-        packages: [paramiko]
-
-gtsam-release:
-  ubuntu:
-    source:
-      uri: "file:///etc/ros/rosdep/amz/rdmanifests/gtsam-release.rdmanifest"
+    pip:
+      packages: [paramiko]
