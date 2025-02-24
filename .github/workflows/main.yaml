@@ -33,6 +33,8 @@ jobs:
       # Needs pip, which for some reason is not present
       - uses: actions/setup-python@v5
       # Run the hashing command
+      - name: Make dep_hash runnable
+        run: chmod +x ./tools/ci/dep_hash.sh
       - name: Generate hash
         id: hash
         run: echo "::set-output name=hash::$(./tools/ci/dep_hash.sh)"
