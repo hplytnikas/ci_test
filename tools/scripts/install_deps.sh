@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-REPO_ROOT_DIR="$( realpath $SCRIPTS_DIR/../..) "
+REPO_ROOT_DIR="$( realpath $SCRIPTS_DIR/../..)"
 ROSDEP_DIR="$REPO_ROOT_DIR/tools/rosdep"
 
 # Create necessary directories
@@ -19,6 +19,7 @@ echo "deb [trusted=yes] http://127.0.0.1:8081 stable main" | sudo tee /etc/apt/s
 sudo apt update
 
 # Copy rosdep manifest and lists
+echo "Rosdep directory in: $ROSDEP_DIR"
 sudo cp $ROSDEP_DIR/amz.yaml /etc/ros/rosdep/amz/
 sudo cp $ROSDEP_DIR/amz.list /etc/ros/rosdep/sources.list.d/
 
