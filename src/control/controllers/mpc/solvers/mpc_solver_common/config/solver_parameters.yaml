@@ -1,4 +1,0 @@
-# Number of stages in the MPC problem
-N_horizon: 40
-# Final time of the MPC horizon in seconds
-T_final: 1.0

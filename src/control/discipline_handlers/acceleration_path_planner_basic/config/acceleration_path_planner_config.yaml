@@ -1,8 +1,0 @@
-acceleration_path_planner_node:
-  ros__parameters:
-    reference_topic: "/planning/reference"
-    reference_publish_frequency: 4.0
-    num_points: 300
-    lane_width: 4.0 # Only usefull for MPC
-    reference_resolution: 0.5
-    target_velocity: 40.0
