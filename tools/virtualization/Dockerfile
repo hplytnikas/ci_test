@@ -35,7 +35,6 @@ RUN   add-apt-repository -y ppa:neovim-ppa/unstable && \
 ARG   BRANCH=main
 
 # Cool way to clone the autonomous_2024, invalidates cache on new commits, and lets for specifying branches !
-# ADD   --keep-git-dir=true --chown=amz:amz git@github.com:AMZ-Racing/autonomous_2024.git#$BRANCH /autonomous_2024
 ADD   --keep-git-dir=true --chown=amz:amz https://github.com/hplytnikas/ci_test.git#$BRANCH /autonomous_2024
 
 WORKDIR /autonomous_2024
@@ -47,8 +46,6 @@ RUN   --mount=type=cache,target=/var/cache/apt \
       rm -f /etc/apt/apt.conf.d/docker-clean && \
       cd /autonomous_2024 && \
       ./tools/scripts/install_deps.sh
-
-ENV CMAKE_PREFIX_PATH="/usr/local/share/amz/lib/cmake/easy_profiler:/usr/local/share/amz/lib/cmake/GTSAM:$CMAKE_PREFIX_PATH"
 
 USER amz
 
