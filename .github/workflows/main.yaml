@@ -79,7 +79,7 @@ jobs:
         run: chmod +x ./tools/virtualization/run.sh
       - name: Build the dependency image
         if: ${{ needs.check-if-dependency-image-exists.outputs.image_exists == 'false' }}
-        run: sudo ./tools/virtualization/run.sh build --build-arg BRANCH=${{ env.BRANCH_NAME }}
+        run: ./tools/virtualization/run.sh build --build-arg BRANCH=${{ env.BRANCH_NAME }}
       - name: Tag the dependency image
         if: ${{ needs.check-if-dependency-image-exists.outputs.image_exists == 'false' }}
         run: docker tag $DEPENDENCY_IMAGE:latest $DOCKER_REGISTRY/$DEPENDENCY_IMAGE:${{ needs.generate-dependency-hash.outputs.hash }}
