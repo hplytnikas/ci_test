@@ -124,6 +124,8 @@ jobs:
           submodules: recursive
           ssh-key: ${{secrets.CI_SSH_KEY}} # needed for submodules
       - run: git config --global --add safe.directory /__w/autonomous_2024/autonomous_2024
+      - name: Give execute permission to build script
+        run: chmod +x ./tools/scripts/build.sh
       - name: Build code
         id: build
         run: ./tools/scripts/build.sh
