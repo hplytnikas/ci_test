@@ -1,4 +1,0 @@
-amzsim_model:
-  ros__parameters:
-    frequency: 200.0 # Frequency of the model
-    dt: 0.005 # dt = 1/frequency for real time simulation
