@@ -79,6 +79,8 @@ jobs:
         run: chmod +x ./tools/virtualization/run.sh
       - name: Give execute permissions to scripts
         run: chmod +x ./tools/virtualization/.scripts/*.sh
+      - name: Set CMAKE_PREFIX_PATH for this step
+        run: export CMAKE_PREFIX_PATH="/usr/local/share/amz/lib/cmake/GTSAM:$CMAKE_PREFIX_PATH" && ./tools/scripts/build.sh
       - name: Build the dependency image
         if: ${{ needs.check-if-dependency-image-exists.outputs.image_exists == 'false' }}
         run: ./tools/virtualization/run.sh build --build-arg BRANCH=${{ env.BRANCH_NAME }}
