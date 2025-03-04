@@ -13,7 +13,7 @@ sudo mkdir -p /etc/ros/rosdep/sources.list.d
 sudo add-apt-repository -y ppa:borglab/gtsam-develop
 
 # Add your custom APT repository
-echo "deb [trusted=yes] http://127.0.0.1:8081 stable main" | sudo tee /etc/apt/sources.list.d/custom-repo.list #129.132.161.48
+echo "deb [trusted=yes] http://amz-cpu1.ethz.ch:8081 stable main" | sudo tee /etc/apt/sources.list.d/custom-repo.list #129.132.161.48
 
 # Update APT package list
 sudo apt update
